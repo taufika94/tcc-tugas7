@@ -1,18 +1,22 @@
-import {Sequelize} from "sequelize";
+import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
+import User from "./UserModel.js";
 
-const {DataTypes} = Sequelize;
-
-const Notes = db.define('notesfika', {
+const Notes = db.define(
+  "note",
+  {
     judul: DataTypes.STRING,
-    content: DataTypes.STRING
+    content: DataTypes.TEXT,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  { freezeTableName: true }
+);
 
-}, {
-    freezeTableName:true
-} );
+// Relasi
+User .hasMany(Notes, { foreignKey: "userId", onDelete: "CASCADE" });
+Notes.belongsTo(User, { foreignKey: "userId" });
 
-export default Notes ;
-
-(async() => {
-    await db.sync();
-}) ();
+export default Notes;

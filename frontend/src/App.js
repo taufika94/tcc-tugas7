@@ -5,6 +5,9 @@ import EditNotes from "./components/EditNotes";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import GlobalStyles from "./styles/GlobalStyles";
+import Login from "./pages/Login";
+import Register from "./components/Register";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -13,9 +16,23 @@ function App() {
       <Header/>
       <div className="container">
         <Routes>
-          <Route path="/"element={<NotesList/>}/>
-          <Route path="add"element={<AddNotes/>}/>
-          <Route path="edit/:id"element={<EditNotes/>}/>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={
+            <ProtectedRoute>
+              <NotesList/>
+            </ProtectedRoute>
+          }/>
+          <Route path="add" element={
+            <ProtectedRoute>
+              <AddNotes/>
+            </ProtectedRoute>
+          }/>
+          <Route path="edit/:id" element={
+            <ProtectedRoute>
+              <EditNotes/>
+            </ProtectedRoute>
+          }/>
         </Routes>
       </div>
       <Footer/>

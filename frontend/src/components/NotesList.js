@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import styled from 'styled-components';
 import { BASE_URL } from "../utils";
+import api from "../api"
 
 const TableContainer = styled.div`
     background: white;
@@ -14,16 +15,23 @@ const TableContainer = styled.div`
 `;
 
 const NotesList = () => {
-    const[notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        getNotes() ;
-    },[]);
+  useEffect(() => {
+    getNotes();
+  }, []);
 
-    const getNotes = async () => {
-        const response = await axios.get(`${BASE_URL}/notes`);
-        setNotes(response.data);
-    };
+  const getNotes = async () => {
+    try {
+      const response = await api.get(`${BASE_URL}/notes`);
+      setNotes(response.data);
+    } catch (error) {
+      if (error.response?.status === 401) {
+        navigate('/login');
+      }
+    }
+  };
 
     const deleteNotes = async (id) => {
         try {

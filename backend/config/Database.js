@@ -1,8 +1,16 @@
-import { Sequelize } from "sequelize";
+   import { Sequelize } from "sequelize";
+   import dotenv from "dotenv";
 
-const db = new Sequelize("RECOVER_YOUR_DATA", "root", "", {
-    host: "104.197.117.136",
-    dialect: "mysql",
-});
+   dotenv.config();
 
-export default db;
+   const DB_NAME = process.env.DB_NAME;
+   const DB_USERNAME = process.env.DB_USERNAME;
+   const DB_PASSWORD = process.env.DB_PASSWORD;
+
+   const db = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
+     host: process.env.DB_HOST,
+     dialect: "mysql", 
+   });
+
+   export default db;
+   
