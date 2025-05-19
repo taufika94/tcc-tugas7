@@ -112,11 +112,13 @@ async function loginHandler(req, res){
               const refreshToken = jwt.sign(safeUserData, process.env.REFRESH_TOKEN_SECRET, {
                   expiresIn : '1d' 
               });
-              await User.update({refresh_token:refreshToken},{
-                  where:{
-                      id:user.id
-                  }
-              });
+
+              const [updated] = await User.update(
+                { refresh_token: refreshToken },
+                { where: { id: user.id } }
+              );
+
+              
               res.cookie('refreshToken', refreshToken,{
                   httpOnly : false, //ngatur cross-site scripting, untuk penggunaan asli aktifkan karena bisa nyegah serangan fetch data dari website "document.cookies"
                   sameSite : 'none',  //ini ngatur domain yg request misal kalo strict cuman bisa akseske link dari dan menuju domain yg sama, lax itu bisa dari domain lain tapi cuman bisa get
@@ -127,7 +129,7 @@ async function loginHandler(req, res){
                   status: "Succes",
                   message: "Login Berhasil",
                   safeUserData,
-                  accessToken 
+                  refreshToken 
               });
           }
           else{

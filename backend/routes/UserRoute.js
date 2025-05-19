@@ -20,7 +20,7 @@ router.post('/login', loginHandler);
 router.delete('/logout', logout);
 
 //endpoint data biasa
-router.post("/register", createUser); //tambah user
+router.post("/add-user", createUser); //tambah user
 router.get("/users",verifyToken, getUsers);
 router.get("/users/:id", verifyToken,getUserById);
 router.put("/edit-user/:id", verifyToken,updateUser);

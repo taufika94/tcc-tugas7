@@ -5,6 +5,7 @@ GET http://localhost:5001/notes/1
 
 ###
 POST  http://localhost:5001/notes
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6InRlcyIsImVtYWlsIjoidGVzQHRlZC5jb20iLCJnZW5kZXIiOiJNYWxlIiwiY3JlYXRlZEF0IjoiMjAyNS0wNS0xOCIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTgiLCJpYXQiOjE3NDc2MTE2NDksImV4cCI6MTc0NzY5ODA0OX0.keUBrb4ZKQHQipdbjqpPMkz-vN9KdC3XblIS7jk4HC4
 Content-Type: application/json
 
 {
@@ -13,18 +14,22 @@ Content-Type: application/json
 }
 
 ###
-PATCH   http://localhost:5001/notes/1
+PATCH http://localhost:5001/notes/7
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6InRlcyIsImVtYWlsIjoidGVzQHRlZC5jb20iLCJnZW5kZXIiOiJNYWxlIiwiY3JlYXRlZEF0IjoiMjAyNS0wNS0xOCIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTgiLCJpYXQiOjE3NDc2MTE2NDksImV4cCI6MTc0NzY5ODA0OX0.keUBrb4ZKQHQipdbjqpPMkz-vN9KdC3XblIS7jk4HC4
+
 Content-Type: application/json
 
 {
-    "judul" : "FIKAA",
+    "judul" : "Updatedd",
     "content" : "taufika@gmail.com"
 }
 
 ###
-DELETE  http://localhost:5001/notes/11
+DELETE  http://localhost:5001/notes/1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6InRlcyIsImVtYWlsIjoidGVzQHRlZC5jb20iLCJnZW5kZXIiOiJNYWxlIiwiY3JlYXRlZEF0IjoiMjAyNS0wNS0xOCIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTgiLCJpYXQiOjE3NDc2MDk0MTQsImV4cCI6MTc0NzY5NTgxNH0.9fSCu9b3ntUHKvF3CrhZxLRe86MhQp1Jc0WDcLigFhE
 
 
+###
 GET http://localhost:5001/users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InRlcyIsImVtYWlsIjoidGVzQHRlcy5jb20iLCJnZW5kZXIiOiJNYWxlIiwiY3JlYXRlZEF0IjoiMjAyNS0wNS0wNFQxNzo0Nzo0OS4wMDBaIiwidXBkYXRlZEF0IjoiMjAyNS0wNS0wNFQxODoxMzoyOS4wMDBaIiwiaWF0IjoxNzQ2MzgyNjI4LCJleHAiOjE3NDYzODI2NTh9.7oXC7vpjl28v7ez0mO7sZGW1v33kLXo0HFkg5fcEyC0
 
@@ -35,21 +40,21 @@ Content-Type: application/json
 
 {
     "name": "tes",
-    "email": "tes@tes.com",
+    "email": "tes@ted.com",
     "gender": "Male",
     "password": "12345"
 }
 
 ### 
 
-PUT http://localhost:5001/edit-user/14
+PUT http://localhost:5001/edit-user/9
 Content-Type: application/json
 
-{
-    "name": "tessss",
-    "email": "tesss@tessss.com",
-    "gender": "Male"
-}
+  {
+       "name": "tessss",
+       "email": "tesss@teb.com",
+       "gender": "Male"
+   }
 
 ###
 
@@ -57,13 +62,12 @@ DELETE http://localhost:5001/delete-user/17
 
 
 ###
-
 POST http://localhost:5001/login
 Content-Type: application/json
 
 {
    
-    "email": "tes@tes.com",
+    "email": "tes@ted.com",
     "password": "12345"
 }
 

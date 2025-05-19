@@ -27,13 +27,33 @@ export const createNotes = async (req, res) => {
 
 export const updateNotes = async (req, res) => {
   try {
-    const rows = await Notes.update(req.body, {
-      where: { id: req.params.id, userId: req.user.id },
+    const { id } = req.params;
+    const userId = req.user?.id;
+
+    // Validasi sederhana
+    if (!id || !userId) {
+      return res.status(400).json({ message: "Invalid request" });
+    }
+    console.log(req.body)
+
+    const [updatedCount] = await Notes.update(req.body, {
+      where: {
+        id,
+        userId
+      },
     });
-    if (!rows[0]) return res.sendStatus(404);
-    res.json({ msg: "Notes Updated" });
-  } catch (e) { console.log(e); }
+
+    if (updatedCount === 0) {
+      return res.status(404).json({ message: "Note not found or not authorized" });
+    }
+
+    return res.status(200).json({ message: "Note updated successfully" });
+  } catch (error) {
+    console.error("Error updating note:", error);
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 };
+
 
 export const deleteNotes = async (req, res) => {
   try {

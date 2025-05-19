@@ -5,7 +5,7 @@ import EditNotes from "./components/EditNotes";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import GlobalStyles from "./styles/GlobalStyles";
-import Login from "./pages/Login";
+import Login from "./components/Login";
 import Register from "./components/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 

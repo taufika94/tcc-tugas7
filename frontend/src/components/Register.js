@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link dari react-router-dom
 import styled from 'styled-components';
 import { BASE_URL } from "../utils";
 
@@ -28,7 +28,7 @@ const Register = () => {
                 gender,
                 password
             });
-            navigate("/login");
+            navigate("/login"); // Redirect to login after successful registration
         } catch (error) {
             console.log(error);
         }
@@ -65,6 +65,9 @@ const Register = () => {
                     <button type="submit" className="button is-success">Register</button>
                 </div>
             </form>
+            <p className="has-text-centered">
+                Already have an account? <Link to="/login">Login here</Link> 
+            </p>
         </FormContainer>
     );
 };
