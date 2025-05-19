@@ -18,4 +18,5 @@ app.get("/", (req, res) => res.json({ message: "API is running" }));
 app.use(UserRoute);
 app.use(NotesRoute);
 
-app.listen(3000, () => console.log("Server connected"));
+const PORT = process.env.PORT || 5001;
+app.listen(PORT, () => console.log(`Server connected on port ${PORT}`));
