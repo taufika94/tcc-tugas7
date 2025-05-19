@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios"; // Tambahkan ini di bagian atas file Header dan NotesList
+import { BASE_URL } from "../utils";
+
 
 const Navbar = styled.nav`
   background-color: #4a90e2;

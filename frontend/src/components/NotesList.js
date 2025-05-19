@@ -5,6 +5,8 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import styled from 'styled-components';
 import { BASE_URL } from "../utils";
 import api from "../api"
+import { useNavigate } from 'react-router-dom'; // Tambahkan ini di bagian atas file NotesList
+
 
 const TableContainer = styled.div`
     background: white;
