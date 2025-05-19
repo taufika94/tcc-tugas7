@@ -7,7 +7,6 @@ import dotenv from "dotenv";
 
 
 const app = express();
-app.set("view engine", "ejs");
 
 app.use(express.json());
 dotenv.config();
