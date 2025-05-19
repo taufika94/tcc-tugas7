@@ -17,4 +17,4 @@ app.get("/", (req, res) => res.render("index"));
 app.use(UserRoute);
 app.use(NotesRoute);
 
-app.listen(5001, () => console.log("Server connected"));
+app.listen(3000, () => console.log("Server connected"));
