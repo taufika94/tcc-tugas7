@@ -22,7 +22,7 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${BASE_URL}/register`, {
+            await axios.post(`${BASE_URL}/add-user`, {
                 name,
                 email,
                 gender,
