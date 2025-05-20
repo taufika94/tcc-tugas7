@@ -76,7 +76,7 @@ const Login = () => {
         </div>
       </form>
       <p className="has-text-centered">
-        Don't have an account? <a href="/add-user">Register here</a>
+        Don't have an account? <a href="/register">Register here</a>
       </p>
     </LoginContainer>
   );
