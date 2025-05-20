@@ -24,20 +24,20 @@ async function getUserById(req, res) {
 
 // REGISTER //baru nambahin pasword dan bcrypt
 async function createUser(req, res) {
-  try{
+  try {
     const { name, email, gender, password } = req.body;
     const encryptPassword = await bcrypt.hash(password, 5);
     await User.create({
-        name: name,
-        email: email,
-        gender: gender,
+        name,
+        email,
+        gender,
         password: encryptPassword
-        
     });
-    res.status(201).json({msg:"Register Berhasil"});
-} catch(error){
-    console.log(error.message);
-}
+    res.status(201).json({ msg: "Register Berhasil" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Terjadi kesalahan saat mendaftarkan user." });
+  }
 }
 
 //baru nambahin case password
