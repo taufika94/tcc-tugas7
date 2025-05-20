@@ -17,11 +17,18 @@ app.use(cors({ credentials:true,origin:'https://fe-196-dot-c-05-451109.ue.r.apps
 app.set('view engine', 'ejs');
 app.get("/", (req, res) => res.json({ message: "API is running" }));
 app.get("/db-check", async (req, res) => {
-  const isConnected = await testConnection();
-  if (isConnected) {
+  const result = await testConnection();
+  
+  if (result.success) {
     res.status(200).json({ status: "ok", message: "Database connected." });
   } else {
-    res.status(500).json({ status: "error", message: "Database connection failed." });
+    res.status(500).json({
+      status: "error",
+      message: "Database connection failed.",
+      error: result.error,
+      code: result.code,
+      errno: result.errno
+    });
   }
 });
 

@@ -18,11 +18,18 @@ const db = new Sequelize(DB_NAME, DB_USERNAME, DB_PASSWORD, {
 export const testConnection = async () => {
   try {
     await db.authenticate();
-    console.log(' Koneksi database berhasil.');
-    return true;
+    console.log('Koneksi database berhasil.');
+    return { success: true };
   } catch (error) {
-    console.error(' Koneksi database gagal:', error);
-    return false;
+    console.error('Koneksi database gagal:', error.message);
+    // Optional: log lebih lengkap untuk debugging
+    console.error(error);
+    return {
+      success: false,
+      error: error.message,
+      code: error.original?.code || null, // misalnya ECONNREFUSED
+      errno: error.original?.errno || null
+    };
   }
 };
 
