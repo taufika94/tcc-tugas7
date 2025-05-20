@@ -35,8 +35,11 @@ async function createUser(req, res) {
     });
     res.status(201).json({ msg: "Register Berhasil" });
   } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Terjadi kesalahan saat mendaftarkan user." });
+    console.error("Full error object:", error); // ini akan menampilkan semua info error
+    res.status(500).json({
+      error: "Terjadi kesalahan saat mendaftarkan user.",
+      detail: error.message, // kirim pesan singkat ke frontend
+    });
   }
 }
 
