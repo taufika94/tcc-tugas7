@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import NotesList from "./components/NotesList";
 import AddNotes from "./components/AddNotes";
 import EditNotes from "./components/EditNotes";
@@ -16,6 +16,7 @@ function App() {
       <Header/>
       <div className="container">
         <Routes>
+          <Route path="/" element={<Navigate to="/notes" />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/notes" element={
