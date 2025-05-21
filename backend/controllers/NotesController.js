@@ -5,7 +5,10 @@ export const getNotes = async (req, res) => {
   try {
     const notes = await Notes.findAll({ where: { userId: req.user.id } });
     res.json(notes);
-  } catch (e) { console.log(e); }
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "Error fetching notes" });
+  }
 };
 
 export const getNotesById = async (req, res) => {
@@ -20,9 +23,12 @@ export const getNotesById = async (req, res) => {
 
 export const createNotes = async (req, res) => {
   try {
-    await Notes.create({ ...req.body, userId: req.user.id });
-    res.status(201).json({ msg: "Notes Created" });
-  } catch (e) { console.log(e); }
+    const note = await Notes.create({ ...req.body, userId: req.user.id });
+    res.status(201).json({ msg: "Notes Created", note });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ msg: "Error creating note" });
+  }
 };
 
 export const updateNotes = async (req, res) => {

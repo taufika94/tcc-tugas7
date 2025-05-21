@@ -32,15 +32,16 @@ const NotesList = () => {
       if (error.response?.status === 401) {
         navigate('/login');
       }
+      console.error("Error fetching notes:", error);
     }
   };
 
     const deleteNotes = async (id) => {
         try {
-            await axios.delete(`${BASE_URL}/notes/${id}`);
+            await api.delete(`${BASE_URL}/notes/${id}`);
             getNotes();
         } catch (error) {
-            console.log(error);
+            console.error("Error deleting note:", error);
         }
     }
 

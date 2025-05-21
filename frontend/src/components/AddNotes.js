@@ -3,6 +3,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import styled from 'styled-components';
 import { BASE_URL } from "../utils";
+import api from "../api"
 
 const FormContainer = styled.div`
     background: white;
@@ -20,11 +21,11 @@ const AddNotes = () => {
     const saveNotes = async (e) => {
         e.preventDefault () ;
         try{
-            await axios.post(`${BASE_URL}/notes`, {
+            await api.post(`${BASE_URL}/notes`, {
                 judul,
                 content
             });
-            navigate("/");
+            navigate("/notes");
         } catch (error) {
             console.log(error);
 

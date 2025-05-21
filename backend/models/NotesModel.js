@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/Database.js";
-import User from "./UserModel.js";
+import User from "./User Model.js";
 
 const Notes = db.define(
   "note",
@@ -10,6 +10,10 @@ const Notes = db.define(
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: User,
+        key: 'id'
+      }
     },
   },
   { freezeTableName: true }

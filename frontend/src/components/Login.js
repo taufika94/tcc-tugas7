@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 import { BASE_URL } from '../utils';
+import api from "../api"
 
 const LoginContainer = styled.div`
   max-width: 400px;
@@ -22,7 +23,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${BASE_URL}/login`, {
+      const response = await api.post(`${BASE_URL}/login`, {
         email,
         password
       });
@@ -31,7 +32,7 @@ const Login = () => {
       localStorage.setItem('accessToken', response.data.accessToken);
       
       // Redirect to notes page
-      navigate('/');
+      navigate('/notes');
     } catch (err) {
       setError('Invalid email or password');
       console.error(err);

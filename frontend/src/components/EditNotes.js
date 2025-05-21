@@ -3,6 +3,7 @@ import axios from "axios";
 import {useNavigate, useParams} from "react-router-dom";
 import styled from 'styled-components';
 import { BASE_URL } from "../utils";
+import api from "../api"
 
 const FormContainer = styled.div`
     background: white;
@@ -25,11 +26,11 @@ const EditNotes = () => {
     const updateNotes = async (e) => {
         e.preventDefault () ;
         try{
-            await axios.patch(`${BASE_URL}/notes/${id}`, {
+            await api.patch(`${BASE_URL}/notes/${id}`, {
                 judul,
                 content,
             });
-            navigate("/");
+            navigate("/notes");
         } catch (error) {
             console.log(error);
 
@@ -37,7 +38,7 @@ const EditNotes = () => {
     };
 
     const getNotesById = async () => {
-        const response = await axios.get(`${BASE_URL}/notes/${id}`);
+        const response = await api.get(`${BASE_URL}/notes/${id}`);
         setJudul(response.data.judul);
         setContent(response.data.content);
     };
