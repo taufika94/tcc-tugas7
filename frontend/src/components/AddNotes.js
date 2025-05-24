@@ -21,7 +21,7 @@ const AddNotes = () => {
     const saveNotes = async (e) => {
         e.preventDefault () ;
         try{
-            await api.post(`${BASE_URL}/notes`, {
+            await api.post(`${BASE_URL}/notes/add`, {
                 judul,
                 content
             });

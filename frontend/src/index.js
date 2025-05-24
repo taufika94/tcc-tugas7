@@ -4,6 +4,7 @@ import App from './App';
 import "bulma/css/bulma.css";
 import { AuthProvider } from './context/AuthContext';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>

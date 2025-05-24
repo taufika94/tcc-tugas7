@@ -17,6 +17,7 @@ const Navbar = styled.nav`
 const Header = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('accessToken');
+  console.log('Token:', token);
 
   const handleLogout = async () => {
     try {

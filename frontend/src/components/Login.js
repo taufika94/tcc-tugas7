@@ -26,8 +26,9 @@ const Login = () => {
       const response = await api.post(`${BASE_URL}/login`, {
         email,
         password
-      });
-      
+      }, {
+        withCredentials: true   // wajib agar cookie terkirim & diterima
+        });
       // Store the access token in localStorage or context
       localStorage.setItem('accessToken', response.data.accessToken);
       

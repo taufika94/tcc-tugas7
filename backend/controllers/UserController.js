@@ -121,11 +121,13 @@ async function loginHandler(req, res) {
           { where: { id: user.id } }
         );
 
-        res.cookie('refreshToken', refreshToken, {
+        // Kirim refresh token ke client via HTTP-only cookie
+        res.cookie("refreshToken", refreshToken, {
           httpOnly: false,
-          sameSite: 'none',
-          maxAge: 24 * 60 * 60 * 1000,
-          secure: true
+          secure: true, // aktifkan jika pakai HTTPS
+          sameSite: "none", // untuk keamanan CSRF
+          maxAge: 24 * 60 * 60 * 1000, // 1 hari
+        
         });
         res.status(200).json({
           status: "Success",
