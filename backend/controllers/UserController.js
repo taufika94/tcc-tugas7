@@ -25,7 +25,7 @@ async function getUserById(req, res) {
 // REGISTER
 async function createUser (req, res) {
   try {
-    const { name, email, gender, password, label } = req.body; // Tambahkan label di sini
+    const { name, email, gender, password } = req.body; // Tambahkan label di sini
     const encryptPassword = await bcrypt.hash(password, 5);
     await User.create({
       name,
@@ -81,6 +81,7 @@ async function updateUser (req, res) {
     console.log(error.message);
   }
 }
+
 
 // DELETE USER
 async function deleteUser (req, res) {

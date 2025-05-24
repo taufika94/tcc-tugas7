@@ -24,12 +24,12 @@ function App() {
               <NotesList/>
             </ProtectedRoute>
           }/>
-          <Route path="add" element={
+          <Route path="/notes/add" element={
             <ProtectedRoute>
               <AddNotes/>
             </ProtectedRoute>
           }/>
-          <Route path="edit/:id" element={
+          <Route path="/edit/:id" element={
             <ProtectedRoute>
               <EditNotes/>
             </ProtectedRoute>

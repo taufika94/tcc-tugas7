@@ -4,9 +4,8 @@ GET http://localhost:5001/notes
 GET http://localhost:5001/notes/1
 
 ###
-POST  http://localhost:5001/notes
+POST  http://localhost:5001/notes/add
 authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6InRlcyIsImVtYWlsIjoidGVzQHRlZC5jb20iLCJnZW5kZXIiOiJNYWxlIiwiY3JlYXRlZEF0IjoiMjAyNS0wNS0xOCIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTgiLCJpYXQiOjE3NDc2MTE2NDksImV4cCI6MTc0NzY5ODA0OX0.keUBrb4ZKQHQipdbjqpPMkz-vN9KdC3XblIS7jk4HC4
-Content-Type: application/json
 
 {
     "judul" : "FIKA",
@@ -16,7 +15,6 @@ Content-Type: application/json
 ###
 PATCH http://localhost:5001/notes/7
 authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywibmFtZSI6InRlcyIsImVtYWlsIjoidGVzQHRlZC5jb20iLCJnZW5kZXIiOiJNYWxlIiwiY3JlYXRlZEF0IjoiMjAyNS0wNS0xOCIsInVwZGF0ZWRBdCI6IjIwMjUtMDUtMTgiLCJpYXQiOjE3NDc2MTE2NDksImV4cCI6MTc0NzY5ODA0OX0.keUBrb4ZKQHQipdbjqpPMkz-vN9KdC3XblIS7jk4HC4
-
 Content-Type: application/json
 
 {
