@@ -3,12 +3,12 @@ service: fe-196  # ganti nama service kalau mau
 instance_class: F1
 
 handlers:
-  - url: /
+  - url: /(.*\.(js|css|png|jpg|jpeg|gif|svg|ico|ttf|woff|woff2|json))$
+    static_files: build/\1
+    upload: build/.*\.(js|css|png|jpg|jpeg|gif|svg|ico|ttf|woff|woff2|json)
+
+  - url: /.*
     static_files: build/index.html
     upload: build/index.html
-
-  - url: /(.*)
-    static_files: build/\1
-    upload: build/(.*)
 
 default_expiration: "1h"
