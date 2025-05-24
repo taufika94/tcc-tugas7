@@ -29,7 +29,7 @@ function App() {
               <AddNotes/>
             </ProtectedRoute>
           }/>
-          <Route path="/edit/:id" element={
+          <Route path="/notes/edit/:id" element={
             <ProtectedRoute>
               <EditNotes/>
             </ProtectedRoute>

@@ -25,14 +25,37 @@ async function getUserById(req, res) {
 // REGISTER
 async function createUser (req, res) {
   try {
-    const { name, email, gender, password } = req.body; // Tambahkan label di sini
+    const { name, email, gender, password } = req.body;
+     // Validasi sederhana
+    if (!name || !email || !gender || !password) {
+      return res.status(400).json({
+        error: "Validasi gagal",
+        detail: "Semua field wajib diisi"
+      });
+    }
+
+    if (password.length < 5) {
+      return res.status(400).json({
+        error: "Validasi gagal",
+        detail: "Password minimal 5 karakter"
+      });
+    }
+
+    // Cek apakah email sudah terdaftar
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({
+        error: "Validasi gagal",
+        detail: "Email sudah terdaftar"
+      });
+    }
+
     const encryptPassword = await bcrypt.hash(password, 5);
     await User.create({
       name,
       email,
       gender,
       password: encryptPassword,
-      label: label || null // Atur label ke null jika tidak ada
     });
     res.status(201).json({ msg: "Register Berhasil" });
   } catch (error) {
@@ -52,7 +75,6 @@ async function updateUser (req, res) {
       name,
       email,
       gender,
-      label: label || null // Atur label ke null jika tidak ada
     };
 
     if (password) {
@@ -94,64 +116,32 @@ async function deleteUser (req, res) {
 }
 
 // LOGIN HANDLER
+// LOGIN HANDLER
 async function loginHandler(req, res) {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({
-      where: {
-        email: email
-      }
-    });
-
+    const user = await User.findOne({ where: { email } });
     if (user) {
-      const userPlain = user.toJSON(); // Konversi ke object
-      const { password: _, refresh_token: __, ...safeUserData } = userPlain;
-
       const decryptPassword = await bcrypt.compare(password, user.password);
       if (decryptPassword) {
-        const accessToken = jwt.sign(safeUserData, process.env.ACCESS_TOKEN_SECRET, {
-          expiresIn: '30s'
-        });
-        const refreshToken = jwt.sign(safeUserData, process.env.REFRESH_TOKEN_SECRET, {
-          expiresIn: '1d'
-        });
-
-        const [updated] = await User.update(
-          { refresh_token: refreshToken },
-          { where: { id: user.id } }
-        );
-
-        // Kirim refresh token ke client via HTTP-only cookie
+        const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' });
+        const refreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+        await User.update({ refresh_token: refreshToken }, { where: { id: user.id } });
         res.cookie("refreshToken", refreshToken, {
-          httpOnly: false,
-          secure: true, // aktifkan jika pakai HTTPS
-          sameSite: "none", // untuk keamanan CSRF
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production', // aktifkan jika pakai HTTPS
+          sameSite: "none",
           maxAge: 24 * 60 * 60 * 1000, // 1 hari
-        
         });
-        res.status(200).json({
-          status: "Success",
-          message: "Login Berhasil",
-          safeUserData,
-          refreshToken
-        });
+        res.status(200).json({ accessToken });
       } else {
-        res.status(400).json({
-          status: "Failed",
-          message: "Password atau email salah",
-        });
+        res.status(400).json({ message: "Invalid email or password" });
       }
     } else {
-      res.status(400).json({
-        status: "Failed",
-        message: "Password atau email salah",
-      });
+      res.status(400).json({ message: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(error.statusCode || 500).json({
-      status: "error",
-      message: error.message
-    });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 }
 

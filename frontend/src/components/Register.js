@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom"; // Import Link from react-router-dom
 import styled from 'styled-components';
 import api from "../api"; // Use the api instance
+import { BASE_URL } from "../utils";
 
 const FormContainer = styled.div`
     background: white;
@@ -20,25 +21,18 @@ const Register = () => {
     const navigate = useNavigate();
 
     const handleRegister = async (e) => {
-        e.preventDefault();
-        try {
-            // Send registration data to the backend
-            const response = await api.post(`/register`, {
-                name,
-                email,
-                gender,
-                password
-            });
-            // If registration is successful, redirect to the notes page
-            if (response.status === 201) {
-                navigate("/"); // Redirect to notes page after successful registration
-            }
-        } catch (error) {
-            // Handle errors and set error message
-            setError("Registration failed. Please try again.");
-            console.error("Registration error:", error);
+    e.preventDefault();
+    try {
+        const response = await api.post(`${BASE_URL}/register`, { name, email, gender, password });
+        if (response.status === 201) {
+        navigate("/login"); // Redirect to login after successful registration
         }
+    } catch (error) {
+        setError("Registration failed. Please try again.");
+        console.error("Registration error:", error);
+    }
     };
+
 
     return (
         <FormContainer>

@@ -18,19 +18,33 @@ const AddNotes = () => {
     const [content, setContent] = useState("");
     const navigate = useNavigate();
 
-    const saveNotes = async (e) => {
-        e.preventDefault () ;
-        try{
-            await api.post(`${BASE_URL}/notes/add`, {
-                judul,
-                content
-            });
-            navigate("/notes");
-        } catch (error) {
-            console.log(error);
+const saveNotes = async (e) => {
+  e.preventDefault();
+  try {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('No access token found');
+    }
 
-        };
-    };
+    await api.post(
+      `${BASE_URL}/notes/add`,
+      {
+        judul,
+        content
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    navigate("/notes");
+  } catch (error) {
+    console.error('Error saving note:', error);
+  }
+};
+
 
 
     return (

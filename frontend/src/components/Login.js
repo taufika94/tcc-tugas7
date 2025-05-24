@@ -20,23 +20,34 @@ const Login = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+   const handleLogin = async (e) => {
     e.preventDefault();
+    setError('');
+
+    if (!email || !password) {
+      setError('Email and password are required');
+      return;
+    }
+
     try {
-      const response = await api.post(`${BASE_URL}/login`, {
-        email,
-        password
-      }, {
-        withCredentials: true   // wajib agar cookie terkirim & diterima
-        });
-      // Store the access token in localStorage or context
-      localStorage.setItem('accessToken', response.data.accessToken);
-      
-      // Redirect to notes page
-      navigate('/notes');
+      const response = await api.post(
+        `${BASE_URL}/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+
+      const accessToken = response?.data.accessToken;
+      if (accessToken) {
+        localStorage.setItem('accessToken', accessToken);
+        navigate('/notes');
+      } else {
+        setError('Login successful but token is missing.');
+      }
     } catch (err) {
-      setError('Invalid email or password');
-      console.error(err);
+      const message =
+        err?.response?.data?.message || 'Invalid email or password';
+      setError(message);
+      console.error('Login error:', err);
     }
   };
 
